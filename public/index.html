@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TerminalControl - Gestión de Pasajeros y Unidades</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Bienvenidos al Terminal de Pasajeros</h1>
+    </header>
+
+    <main class="dashboard">
+        <!-- Sección de Viajes y Horarios -->
+        <section class="card">
+            <h2>Viajes y Horarios</h2>
+            <div id="lista-viajes">
+                <p>Cargando líneas y horarios...</p>
+            </div>
+        </section>
+
+        <!-- Sección para Registrar Persona (Chequeo) -->
+        <section class="card">
+            <h2>Registrar Persona (Chequeo)</h2>
+            <form id="form-persona">
+                <label for="linea-persona">Línea:</label>
+                <input type="text" id="linea-persona" required placeholder="Ej: Caracas">
+
+                <label for="cedula-persona">Cédula (8 dígitos):</label>
+                <input type="text" id="cedula-persona" maxlength="8" required placeholder="Ej: 12345678">
+
+                <label for="nombre-persona">Nombre:</label>
+                <input type="text" id="nombre-persona" required placeholder="Nombre">
+
+                <button type="submit">Agregar Persona</button>
+            </form>
+        </section>
+
+        <!-- Sección de Líneas Activas -->
+        <section class="card">
+            <h2>Líneas Activas</h2>
+            <ul id="lista-lineas-activas">
+                <!-- Se llenará dinámicamente -->
+            </ul>
+        </section>
+
+        <!-- Sección de Estadísticas -->
+        <section class="card stats">
+            <h2>Estadísticas</h2>
+            <p><strong>Total del Día:</strong> <span id="lbl-total-dia">$0</span></p>
+            <div id="estadisticas-lineas">
+                <!-- Total por cada línea -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Enlazamos nuestro JavaScript principal como módulo -->
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
