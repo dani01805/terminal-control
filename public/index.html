@@ -3,59 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TerminalControl - Gestión de Pasajeros y Unidades</title>
+    <title>TerminalControl - Sistema de Gestión y Control</title>
+    <!-- Estilos CSS locales de la aplicación -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-    <header>
-        <h1>Bienvenidos al Terminal de Pasajeros</h1>
+<body class="desktop-layout">
+
+    <!-- 1. HEADER -->
+    <header class="app-header">
+        <div class="header-left">
+            <h1>TerminalControl</h1>
+            <p class="subtitle">Sistema de gestión y control estadístico</p>
+        </div>
+        <div class="header-right">
+            <span id="fecha-actual">Fecha: 11/10/2026</span>
+        </div>
     </header>
 
-    <main class="dashboard">
-        <!-- Sección de Viajes y Horarios -->
-        <section class="card">
-            <h2>Viajes y Horarios</h2>
-            <div id="lista-viajes">
-                <p>Cargando líneas y horarios...</p>
+    <main class="container-fluid py-4">
+
+        <!-- 2. SECCIÓN DE ESTADÍSTICAS (LO PRIMERO) -->
+        <section class="mb-5">
+            <h2>Panel de Indicadores y Estadísticas</h2>
+            <div class="stats-grid">
+                <!-- Tarjeta 1 -->
+                <div class="stat-card">
+                    <h3>Pasajeros del día</h3>
+                    <p id="stat-pasajeros" class="stat-value">0</p>
+                </div>
+                <!-- Tarjeta 2 -->
+                <div class="stat-card">
+                    <h3>Ganancia del terminal</h3>
+                    <p id="stat-ganancia" class="stat-value">$0.00</p>
+                </div>
+                <!-- Tarjeta 3 -->
+                <div class="stat-card">
+                    <h3>Líneas activas</h3>
+                    <p id="stat-lineas" class="stat-value">0</p>
+                </div>
+            </div>
+
+            <!-- Tabla de ganancia por línea -->
+            <div class="table-container mt-4">
+                <h4>Ganancia por línea</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Línea</th>
+                            <th>Pasajeros</th>
+                            <th>Ganancia terminal ($)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-ganancia-por-linea">
+                        <tr>
+                            <td colspan="3" class="text-center">Sin registros analíticos</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </section>
 
-        <!-- Sección para Registrar Persona (Chequeo) -->
-        <section class="card">
-            <h2>Registrar Persona (Chequeo)</h2>
-            <form id="form-persona">
-                <label for="linea-persona">Línea:</label>
-                <input type="text" id="linea-persona" required placeholder="Ej: Caracas">
+        <!-- 3. SECCIÓN DE REGISTRO (Formularios Paralelos) -->
+        <section class="mb-5">
+            <h2>Módulo de Registro Operativo</h2>
+            <div class="forms-grid">
+                <!-- Formulario A: Registrar bus -->
+                <div class="form-card">
+                    <h3>Registrar bus</h3>
+                    <form id="form-auto">
+                        <div class="form-group">
+                            <label for="input-placa">Placa:</label>
+                            <input type="text" id="input-placa" required placeholder="Ej: ABC123A">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-linea">Línea:</label>
+                            <input type="text" id="input-linea" required placeholder="Nombre de la línea">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-tipo">Tipo:</label>
+                            <input type="text" id="input-tipo" required placeholder="Autobús / Encava">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-destino">Destino:</label>
+                            <input type="text" id="input-destino" required placeholder="Ciudad destino">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-precio">Precio pasaje ($):</label>
+                            <input type="number" step="0.01" id="input-precio" required placeholder="0.00">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar bus</button>
+                    </form>
+                </div>
 
-                <label for="cedula-persona">Cédula (8 dígitos):</label>
-                <input type="text" id="cedula-persona" maxlength="8" required placeholder="Ej: 12345678">
-
-                <label for="nombre-persona">Nombre:</label>
-                <input type="text" id="nombre-persona" required placeholder="Nombre">
-
-                <button type="submit">Agregar Persona</button>
-            </form>
-        </section>
-
-        <!-- Sección de Líneas Activas -->
-        <section class="card">
-            <h2>Líneas Activas</h2>
-            <ul id="lista-lineas-activas">
-                <!-- Se llenará dinámicamente -->
-            </ul>
-        </section>
-
-        <!-- Sección de Estadísticas -->
-        <section class="card stats">
-            <h2>Estadísticas</h2>
-            <p><strong>Total del Día:</strong> <span id="lbl-total-dia">$0</span></p>
-            <div id="estadisticas-lineas">
-                <!-- Total por cada línea -->
+                <!-- Formulario B: Registrar pasajero -->
+                <div class="form-card">
+                    <h3>Registrar pasajero</h3>
+                    <form id="form-pasajero">
+                        <div class="form-group">
+                            <label for="input-cedula">Cédula (8 dígitos):</label>
+                            <input type="text" id="input-cedula" maxlength="8" required placeholder="12345678">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-nombre">Nombre:</label>
+                            <input type="text" id="input-nombre" required placeholder="Nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-apellido">Apellido:</label>
+                            <input type="text" id="input-apellido" required placeholder="Apellido">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-telefono">Teléfono:</label>
+                            <input type="text" id="input-telefono" required placeholder="0412-1234567">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-edad">Edad:</label>
+                            <input type="number" id="input-edad" required placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-placa-asociada">Placa del bus:</label>
+                            <input type="text" id="input-placa-asociada" required placeholder="Placa del vehículo">
+                        </div>
+                        <button type="submit" class="btn btn-success">Guardar pasajero</button>
+                    </form>
+                </div>
             </div>
         </section>
+
+        <!-- 4. SECCIÓN DE CONSULTA Y BÚSQUEDA -->
+        <section class="mb-5">
+            <h2>Registros y Consulta en Tiempo Real</h2>
+            <div class="search-container mb-3">
+                <input type="text" id="input-busqueda" class="form-control" placeholder="Buscar por cédula o línea de transporte...">
+            </div>
+
+            <!-- Tabla de buses -->
+            <div class="table-container mb-4">
+                <h4>Flota de Vehículos Registrados</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Placa</th>
+                            <th>Línea</th>
+                            <th>Tipo</th>
+                            <th>Destino</th>
+                            <th>Precio</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-autos">
+                        <tr>
+                            <td colspan="6" class="text-center">No hay vehículos registrados</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Tabla de pasajeros -->
+            <div class="table-container">
+                <h4>Pasajeros Registrados</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cédula</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Teléfono</th>
+                            <th>Edad</th>
+                            <th>Placa Bus</th>
+                            <th>Línea</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-pasajeros">
+                        <tr>
+                            <td colspan="7" class="text-center">No hay pasajeros registrados</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
     </main>
 
-    <!-- Enlazamos nuestro JavaScript principal como módulo -->
-    <script type="module" src="js/main.js"></script>
+    <!-- 5. MODAL DE CONFIRMACIÓN -->
+    <div id="modal-confirmacion" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <p id="modal-mensaje">¿Está seguro de realizar esta acción?</p>
+            <div class="modal-buttons">
+                <button id="btn-modal-confirmar" class="btn btn-danger">Confirmar</button>
+                <button id="btn-modal-cancelar" class="btn btn-secondary">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. TOASTS / CONTENEDOR DE MENSAJES -->
+    <div id="area-mensajes" class="toast-container"></div>
+
+    <!-- 7. SCRIPTS ES6+ CON DEFER -->
+    <script type="module" src="js/modelos/Cl_persona.js" defer></script>
+    <script type="module" src="js/modelos/Cl_auto.js" defer></script>
+    <script type="module" src="js/modelos/Cl_terminal.js" defer></script>
+    <script type="module" src="js/vistas/Cl_vTerminal.js" defer></script>
+    <script type="module" src="js/controladores/Cl_cTerminal.js" defer></script>
+    <script type="module" src="js/main.js" defer></script>
+
 </body>
 </html>

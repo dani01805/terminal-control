@@ -1,0 +1,8 @@
+{
+  "pasajeros": [],
+  "autos": [],
+  "config": {
+    "nombre": "Terminal Central",
+    "tasaPasajero": 1
+  }
+}

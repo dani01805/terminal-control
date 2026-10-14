@@ -1,7 +1,7 @@
-import Cl_persona from './Cl_persona.js';
-import Cl_auto from './Cl_auto.js';
+import {Cl_persona} from './Cl_persona.js';
+import {Cl_auto} from './Cl_auto.js';
 
-export default class Cl_Terminal {
+export  class Cl_terminal {
     constructor({ nombre = "Terminal Central", tasaPasajero = 1 } = {}) {
         this.listaPasajeros = [];
         this.listaAutos = [];
@@ -79,7 +79,10 @@ export default class Cl_Terminal {
             .filter(a => a.linea?.toUpperCase() === lineaStr)
             .map(a => a.placa.toUpperCase());
 
-        return this.listaPasajeros.filter(p => placasLinea.includes(p.placaAuto?.toUpperCase()));
+        return this.listaPasajeros.filter(p =>{
+            const placa = (p.placaAuto || p.placa || "")?.toUpperCase();
+            return placasLinea.includes(placa);
+        })
     }
 
     /**

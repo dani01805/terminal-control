@@ -2,7 +2,7 @@
 // Representa UN pasajero que aborda un bus del terminal.
 // Atributos: cédula, nombre, apellido, teléfono, edad y placa del bus donde viaja.
 
-export class Cl_Persona {
+export class Cl_persona {
     constructor(cedula, nombre, apellido, telefono, edad, placa) {
         this._cedula = cedula;
         this._nombre = nombre;
@@ -70,19 +70,19 @@ export class Cl_Persona {
             apellido: this._apellido,
             telefono: this._telefono,
             edad: this._edad,
-            placa: this._placa
+            placaAuto: this._placa
         };
     }
 
     // --- Reconstrucción desde el backend ---
     static fromJSON(obj) {
-        return new Cl_Persona(
+        return new Cl_persona(
             obj.cedula,
             obj.nombre,
             obj.apellido,
             obj.telefono,
             obj.edad,
-            obj.placa
+            obj.placaAuto
         );
     }
 }

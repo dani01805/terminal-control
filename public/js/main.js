@@ -6,4 +6,5 @@ document.addEventListener("DOMContentLoaded", () => {
     const modelo = new Cl_terminal();
     const vista = new Cl_vTerminal();
     const controlador = new Cl_cTerminal(modelo, vista);
+    controlador.iniciar();
 });

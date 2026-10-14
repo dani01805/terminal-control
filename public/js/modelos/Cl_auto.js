@@ -1,8 +1,8 @@
-// Cl_Auto.js
+// Cl_auto.js
 // Representa UN bus/autobús del terminal.
 // La placa es la clave única del bus.
 
-export class Cl_Auto {
+export class Cl_auto {
     constructor({ placa, linea, tipo, activo = true, destino, precio }) {
         this._placa = placa;
         this._linea = linea;
@@ -75,7 +75,7 @@ export class Cl_Auto {
 
     // --- Reconstrucción desde el backend ---
     static fromJSON(obj) {
-        return new Cl_Auto({
+        return new Cl_auto({
             placa: obj.placa,
             linea: obj.linea,
             tipo: obj.tipo,

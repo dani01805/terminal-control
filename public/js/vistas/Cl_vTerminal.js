@@ -1,13 +1,14 @@
-export default class Cl_vTerminal {
+export class Cl_vTerminal {
     constructor() {
         // Referencias a los elementos del DOM basados en los IDs estándar
         this.statPasajeros = document.querySelector("#stat-pasajeros");
         this.statGanancia = document.querySelector("#stat-ganancia");
         this.tablaGananciaPorLinea = document.querySelector("#tabla-ganancia-por-linea");
+        this.statLineasActivas = document.querySelector("#stat-lineas") // las lienas activas
         this.tablaAutos = document.querySelector("#tabla-autos");
         this.tablaPasajeros = document.querySelector("#tabla-pasajeros");
         this.inputBusqueda = document.querySelector("#input-busqueda");
-        
+
         // Elementos de UI y Modales
         this.modalConfirmacion = document.querySelector("#modal-confirmacion");
         this.modalMensaje = document.querySelector("#modal-mensaje");
@@ -23,6 +24,7 @@ export default class Cl_vTerminal {
     renderizarEstadisticas({ totalPasajeros = 0, gananciaTotal = 0, lineas = [] } = {}) {
         if (this.statPasajeros) this.statPasajeros.textContent = totalPasajeros;
         if (this.statGanancia) this.statGanancia.textContent = `$${gananciaTotal.toFixed(2)}`;
+        if (this.statLineasActivas) this.statLineasActivas.textContent = lineas.length;
 
         if (this.tablaGananciaPorLinea) {
             if (lineas.length === 0) {
@@ -68,27 +70,29 @@ export default class Cl_vTerminal {
      * Renderiza la tabla de pasajeros registrados.
      * @param {Array} lista - Arreglo de objetos Cl_Persona asociados a sus buses.
      */
-    renderizarPasajeros(lista = []) {
-        if (!this.tablaPasajeros) return;
+       renderizarPasajeros(lista = []) {
+    if (!this.tablaPasajeros) return;
 
-        if (lista.length === 0) {
-            this.tablaPasajeros.innerHTML = `<tr><td colspan="7" class="text-center">No hay pasajeros registrados</td></tr>`;
-            return;
-        }
+    if (lista.length === 0) {
+        this.tablaPasajeros.innerHTML = `<tr><td colspan="7" class="text-center">No hay pasajeros registrados</td></tr>`;
+        return;
+    }
 
-        this.tablaPasajeros.innerHTML = lista.map(p => `
+    this.tablaPasajeros.innerHTML = lista.map(item => {
+        const p = item.cedula && typeof item.cedula === 'object' ? item.cedula : item;
+        return `
             <tr>
                 <td>${p.cedula}</td>
                 <td>${p.nombre}</td>
                 <td>${p.apellido}</td>
                 <td>${p.telefono}</td>
                 <td>${p.edad}</td>
-                <td>${p.placaAuto || 'N/A'}</td>
+                <td>${p.placaAuto || p.placa || 'N/A'}</td>
                 <td>${p.linea || 'N/A'}</td>
             </tr>
-        `).join('');
-    }
-
+        `;
+    }).join('');
+}
     /**
      * Muestra un modal de confirmación con acciones personalizadas.
      * @param {string} mensaje - Texto de advertencia o consulta.
